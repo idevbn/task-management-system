@@ -16,6 +16,13 @@ public class TaskResource {
     @Autowired
     private TaskService service;
 
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Task> findById(@PathVariable Long id) {
+        Task obj = service.findById(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
     @PostMapping
     public ResponseEntity<Task> create(@RequestBody Task task) {
         Task obj = service.create(task);

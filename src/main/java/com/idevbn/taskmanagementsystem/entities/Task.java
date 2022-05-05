@@ -1,5 +1,7 @@
 package com.idevbn.taskmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -17,14 +19,17 @@ public class Task {
 
     private String priorityLevel;
 
-    public Task() {
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
+    @JsonBackReference
+    public User getUser() {
+        return user;
     }
 
-    public Task(Long id, String title, String frequency, String priorityLevel) {
-        this.id = id;
-        this.title = title;
-        this.frequency = frequency;
-        this.priorityLevel = priorityLevel;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {

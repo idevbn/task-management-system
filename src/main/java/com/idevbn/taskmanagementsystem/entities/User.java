@@ -1,6 +1,10 @@
 package com.idevbn.taskmanagementsystem.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,13 +19,12 @@ public class User {
 
     private String email;
 
-    public User() {
-    }
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Task> tasks = new ArrayList<>();
 
-    public User(Long id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+    @JsonManagedReference
+    public List<Task> getTask() {
+        return tasks;
     }
 
     public Long getId() {
