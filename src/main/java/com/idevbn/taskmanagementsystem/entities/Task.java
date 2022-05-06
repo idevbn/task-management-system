@@ -1,6 +1,9 @@
 package com.idevbn.taskmanagementsystem.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.idevbn.taskmanagementsystem.entities.enums.TaskFrequency;
+import com.idevbn.taskmanagementsystem.entities.enums.TaskPriority;
+import com.idevbn.taskmanagementsystem.entities.enums.TaskStatus;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,9 +18,11 @@ public class Task {
 
     private String title;
 
-    private String frequency;
+    private Integer taskFrequency;
 
-    private String priorityLevel;
+    private Integer taskPriority;
+
+    private Integer taskStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -48,20 +53,37 @@ public class Task {
         this.title = title;
     }
 
-    public String getFrequency() {
-        return frequency;
+    public TaskFrequency getTaskFrequency() {
+        TaskFrequency taskFrequencyValue = TaskFrequency.valueOf(taskFrequency);
+        return taskFrequencyValue;
     }
 
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
+    public void setTaskFrequency(TaskFrequency taskFrequency) {
+        if (taskFrequency != null) {
+            this.taskFrequency = taskFrequency.getCode();
+        }
     }
 
-    public String getPriorityLevel() {
-        return priorityLevel;
+    public TaskPriority getTaskPriority() {
+        TaskPriority taskPriorityValue = TaskPriority.valueOf(taskPriority);
+        return taskPriorityValue;
     }
 
-    public void setPriorityLevel(String priorityLevel) {
-        this.priorityLevel = priorityLevel;
+    public void setTaskPriority(TaskPriority taskPriority) {
+        if (taskPriority != null) {
+            this.taskPriority = taskPriority.getCode();
+        }
+    }
+
+    public TaskStatus getTaskStatus() {
+        TaskStatus taskStatusValue = TaskStatus.valueOf(taskStatus);
+        return taskStatusValue;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        if (taskStatus != null) {
+            this.taskStatus = taskStatus.getCode();
+        }
     }
 
     @Override
