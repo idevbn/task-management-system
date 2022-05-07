@@ -23,8 +23,12 @@ public class User {
     private List<Task> tasks = new ArrayList<>();
 
     @JsonManagedReference
-    public List<Task> getTask() {
+    public List<Task> getTasks() {
         return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public Long getId() {

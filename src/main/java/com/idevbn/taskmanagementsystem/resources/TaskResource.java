@@ -16,7 +16,6 @@ public class TaskResource {
     @Autowired
     private TaskService service;
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<Task> findById(@PathVariable Long id) {
         Task obj = service.findById(id);
