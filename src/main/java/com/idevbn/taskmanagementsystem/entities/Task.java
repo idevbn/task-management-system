@@ -6,6 +6,8 @@ import com.idevbn.taskmanagementsystem.entities.enums.TaskPriority;
 import com.idevbn.taskmanagementsystem.entities.enums.TaskStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -16,12 +18,16 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "The title field should not be empty")
     private String title;
 
+    @NotNull(message = "The task frequency field should not be empty")
     private Integer taskFrequency;
 
+    @NotNull(message = "The task priority field should not be empty")
     private Integer taskPriority;
 
+    @NotNull(message = "The task status field should not be empty")
     private Integer taskStatus;
 
     @ManyToOne

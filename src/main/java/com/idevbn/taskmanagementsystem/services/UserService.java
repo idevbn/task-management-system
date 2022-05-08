@@ -25,18 +25,12 @@ public class UserService {
     }
 
     public User create(User user) {
-        Optional<User> userOptional = repository.findByEmail(user.getEmail());
+        Optional<User> userOpt = repository.findByEmail(user.getEmail());
 
-        if (userOptional.isPresent()) {
+        if (userOpt.isPresent()) {
             throw new BadRequestException("Email already exists.");
         }
 
-        User userObj = new User();
-
-        userObj.setName(user.getName());
-        userObj.setEmail(user.getEmail());
-        userObj.setTasks(user.getTasks());
-
-        return repository.save(userObj);
+        return repository.save(user);
     }
 }

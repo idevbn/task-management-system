@@ -3,6 +3,8 @@ package com.idevbn.taskmanagementsystem.entities;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,8 +17,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "The user name field should not be empty")
     private String name;
 
+    @Pattern(
+            regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$",
+            message = "Regular Expression by RFC 5322 for Email Validation"
+    )
+    @NotBlank(message = "The email field should not be empty")
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")

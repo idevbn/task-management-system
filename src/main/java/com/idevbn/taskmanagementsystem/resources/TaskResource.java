@@ -3,10 +3,12 @@ package com.idevbn.taskmanagementsystem.resources;
 import com.idevbn.taskmanagementsystem.entities.Task;
 import com.idevbn.taskmanagementsystem.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -23,7 +25,7 @@ public class TaskResource {
     }
 
     @PostMapping
-    public ResponseEntity<Task> create(@RequestBody Task task) {
+    public ResponseEntity<Task> create(@Valid @RequestBody Task task) {
         Task obj = service.create(task);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
