@@ -1,6 +1,7 @@
 package com.idevbn.taskmanagementsystem.resources;
 
 import com.idevbn.taskmanagementsystem.entities.Task;
+import com.idevbn.taskmanagementsystem.entities.enums.TaskStatus;
 import com.idevbn.taskmanagementsystem.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,17 +17,18 @@ import java.net.URI;
 public class TaskResource {
 
     @Autowired
-    private TaskService service;
+    private TaskService taskService;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Task> findById(@PathVariable Long id) {
-        Task obj = service.findById(id);
-        return ResponseEntity.ok().body(obj);
+    @GetMapping(value = "/status/{taskId}")
+    public ResponseEntity<TaskStatus> findTaskStatus(@PathVariable Long taskId) {
+        Task obj = taskService.findTaskStatus(taskId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(obj.getTaskStatus());
     }
 
     @PostMapping
     public ResponseEntity<Task> create(@Valid @RequestBody Task task) {
-        Task obj = service.create(task);
+        Task obj = taskService.create(task);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(obj.getId()).toUri();
