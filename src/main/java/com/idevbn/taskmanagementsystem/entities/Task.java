@@ -1,6 +1,7 @@
 package com.idevbn.taskmanagementsystem.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idevbn.taskmanagementsystem.entities.enums.TaskFrequency;
 import com.idevbn.taskmanagementsystem.entities.enums.TaskPriority;
 import com.idevbn.taskmanagementsystem.entities.enums.TaskStatus;
@@ -33,6 +34,19 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
 
     @JsonBackReference
     public User getUser() {

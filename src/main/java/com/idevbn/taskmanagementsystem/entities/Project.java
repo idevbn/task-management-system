@@ -3,12 +3,10 @@ package com.idevbn.taskmanagementsystem.entities;
 import com.idevbn.taskmanagementsystem.entities.enums.TaskPriority;
 import com.idevbn.taskmanagementsystem.entities.enums.TaskStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 public class Project {
@@ -22,6 +20,12 @@ public class Project {
 
     @NotNull(message = "The task priority field should not be empty")
     private Integer taskPriority;
+
+    @NotNull(message = "The task status field should not be empty")
+    private Integer taskStatus;
+
+    @OneToMany(mappedBy = "project")
+    private List<Task> tasks;
 
     public Long getId() {
         return id;
@@ -39,9 +43,6 @@ public class Project {
         this.title = title;
     }
 
-    @NotNull(message = "The task status field should not be empty")
-    private Integer taskStatus;
-
     public void setTaskPriority(TaskPriority taskPriority) {
         if (taskPriority != null) {
             this.taskPriority = taskPriority.getCode();
@@ -58,5 +59,4 @@ public class Project {
             this.taskStatus = taskStatus.getCode();
         }
     }
-
 }
